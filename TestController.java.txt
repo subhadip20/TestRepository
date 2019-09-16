@@ -1,0 +1,30 @@
+package com.productsearch.productsearch;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class TestController {
+	
+	@Autowired
+	ProductRepository pr;
+	@Autowired
+	ProductSearch search;
+	@GetMapping("/")
+	public ResponseEntity<?> home(){		
+		return ResponseEntity.ok(search.search("red"));
+		
+	}
+	
+	@GetMapping("/a")
+	public ResponseEntity<?> add(){
+		Product p = new Product();		
+		p.setName("tshirt");
+		p.setDescription("Red tshirt gents");
+		pr.save(p);
+		return ResponseEntity.ok(p);
+		
+	}
+}
